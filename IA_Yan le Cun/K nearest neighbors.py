@@ -17,8 +17,9 @@ t_number = 6000
 
 images = []
 labels = []
-number = 1000
+number = 50
 
+nbrVoisins = 10
 # Fonctions
 def load_images(f):
     '''
@@ -43,21 +44,37 @@ def load_labels(f):
     return c
 
 def distance(im1,im2):
+    '''
+    Retourne l'écart entre deux images.
+    '''
     sum = 0
     for i in range(28):
         for j in range(28):
-            sum += (im1[i][j]-im2[i][j])**2
+            sum += abs(im1[i][j]-im2[i][j])
     return sum
 
-def plusProcheVoisin(img):
-    nbr = None
-    dist = None
-    for i in range(t_number):
+def kPlusProchesVoisins(img):
+    '''
+    Retourne les k plus proches voisins.
+    '''
+    nbr = [None for i in range(nbrVoisins)]
+    dist = [None for i in range(nbrVoisins)]
+    for i in range(t_number): # Trouve les k plus proches voisins.
         s = distance(img,t_images[i])
-        if dist == None or s < dist:
-            nbr = t_labels[i]
-            dist = s
-    return (nbr, dist)
+        for j in range(nbrVoisins):
+            if dist[j] == None or s < dist[j]:
+                nbr.insert(j, t_labels[i])
+                dist.insert(j, s)
+                nbr.pop()
+                dist.pop()
+                break
+    c = 0 # Compte du nombre d'occurence.
+    v = 0 # Valeur du nombre ayant c occurences.
+    for i in range(nbrVoisins): # Trouve le chiffre ayant le plus d'occurences.
+        if nbr.count(i) > c:
+            c = nbr.count(i)
+            v = i
+    return v
 
 
 # Main
@@ -76,9 +93,9 @@ for i in range(number):
 winRate = 0
 
 for i in range(number):
-    guess = plusProcheVoisin(images[i])
-    print("Image n°", i+1, ":  Guess =", guess[0], "Real number =", labels[i], "Distance :", guess[1])
-    if guess[0] == labels[i]:
+    guess = kPlusProchesVoisins(images[i])
+    print("Image n°", i+1, ":  Guess =", guess, "Real number =", labels[i])
+    if guess == labels[i]:
         winRate += 1
 
 print("Taux de réussite :", (winRate/number)*100, "%")
