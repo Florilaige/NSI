@@ -9,8 +9,6 @@ b = test_images.read(16) # Passe les 16 premiers octets d'entête.
 l = test_labels.read(8) # Passe les 8 premiers octets d'entête.
 
 # Variables
-c = 0
-
 t_images = []
 t_labels = []
 t_number = 6000
