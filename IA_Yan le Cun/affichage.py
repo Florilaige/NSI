@@ -103,7 +103,7 @@ while lock:
         if event.type == KEYDOWN and event.key == K_RIGHT: # Passe à l'image suivante
             c+=1
             image()
-        if event.type == KEYDOWN and event.key == K_LEFT and c!=0: # Passe à l'image précédante
+        if event.type == KEYDOWN and event.key == K_LEFT and c!=0: # Passe à l'image précédente
             c-=1
             image()
 
