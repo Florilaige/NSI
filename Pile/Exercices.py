@@ -57,12 +57,31 @@ def rotation(p):
         p.empile(n)
 
 #6
+def test_parenthesage(x):
+    nparenthèses = 0
+    ncrochets = 0
+    naccolades = 0
+    for i in x:
+        if i == "(":
+            nparenthèses +=1
+        if i == "[":
+            ncrochets +=1
+        if i == "{":
+            naccolades +=1
+        if i == ")":
+            nparenthèses -=1
+        if i == "]":
+            ncrochets -=1
+        if i == "}":
+            naccolades -=1
+
+    if nparenthèses + ncrochets +  naccolades !=0:
+        return False
+    return True
 
 
 
 
-
-''' Jeu de test :
 assert test_parenthesage (" (a )( b )((( c )(d )))" )== True
 assert test_parenthesage (" ([b ]){(( c ))[d ]} " )== True
 assert test_parenthesage (" (" )== False
@@ -71,4 +90,3 @@ assert test_parenthesage (" ((a ))}" )== False
 assert test_parenthesage (" [[a ]" )== False
 assert test_parenthesage (" [(a ])" )== False
 assert test_parenthesage (" {((a )})" )== False
-'''
