@@ -14,7 +14,7 @@ def transform(window):
 
     for i in range(512):
         for j in range(512):
-            f = lst[j][i]
+            f = lst[j][511-i]
             color = (f, f, f)
             window.set_at((i, j), color)    # dÃ©finit la valeur d'un pixel
 
