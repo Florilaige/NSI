@@ -1,5 +1,3 @@
-# PEREIRINHA Florentin Term-3
-
 #1
 def vue_sur_la_mer(lst):
     a = 0
